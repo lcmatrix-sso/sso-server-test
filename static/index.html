@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SSO Server</title>
+<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body>
+	<h3>SSO Server登录后的主页</h3>
+	用户名：<a id="my-name" href="###"/></a>
+	<br/>
+	登录时间：<span id="login-time" href="###"/></span>
+	<br/>
+	<br/>
+	<a href="http://localhost:9090/sso-client-test">进入子系统</a>
+	<br/>
+	<br/>
+	<a href="logout">单点注销</a>
+	
+	<script type="text/javascript">
+		$.ajax({
+			url: 'myInfo',
+			dataType: 'json',
+			success: function(data){
+				$('#my-name').text(data.username);
+				$('#login-time').text(new Date(data.loginTime));
+			},
+			error: function(response){
+				if(response.status == 401){
+					//跳转到登录页
+					window.location.href = 'login.html?returnUrl=' + window.location.href;
+				}
+			}
+		});
+	</script>
+</body>
+</html>

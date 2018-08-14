@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body>
+	<form id="login-form" method="post" action="open/login">
+		<lable>用户名：</lable><input type="text" name="username"/>
+		<br/>
+		<lable>密　码：</lable><input type="password" name="password"/>
+		<br/>
+		<button type="submit">登录</button>
+	</form>
+	
+	<script type="text/javascript">
+		
+		//处理返回页面参数
+		var htmlParams = htmlParams();
+		if(htmlParams.returnUrl){
+			$('#login-form').attr('action', 'open/login?returnUrl=' + htmlParams.returnUrl);
+		}
+	
+		function htmlParams(){
+			var paramMaps = [];
+			var href = document.location.href;
+			var paramSplitTmp = href.split(/[?#]/);
+			if(paramSplitTmp.length < 2){
+				return paramMaps;
+			}
+			var paramStrs = paramSplitTmp[1].split('&');
+			for(var i = 0; i < paramStrs.length; i++){
+				paramExp = paramStrs[i].split('=');
+				if(paramExp.length > 1){
+					paramMaps[paramExp[0]] = paramExp[1];
+				}else{
+					paramMaps[paramExp[0]] = true;
+				}
+			}
+			return paramMaps;
+		}
+	</script>
+</body>
+</html>
